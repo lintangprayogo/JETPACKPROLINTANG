@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.lintang.jetpackprolintang">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".base.BaseApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,9 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.series.SeriesDetailActivity" />
-        <activity android:name=".ui.movie.MovieDetailActivity" />
-        <activity android:name=".ui.main.HomeActivity">
+        <activity android:name="com.lintang.jetpackprolintang.content.ui.series.SeriesDetailActivity" />
+        <activity android:name="com.lintang.jetpackprolintang.content.ui.movie.MovieDetailActivity" />
+        <activity android:name="com.lintang.jetpackprolintang.content.ui.main.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

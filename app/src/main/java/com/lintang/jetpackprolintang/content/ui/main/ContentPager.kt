@@ -1,10 +1,10 @@
-package com.lintang.jetpackprolintang.ui.main
+package com.lintang.jetpackprolintang.content.ui.main
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.fero.base.view.ui.BaseFragment
+import com.lintang.jetpackprolintang.base.ui.BaseFragment
 
 
 class ContentPager(

@@ -1,11 +1,11 @@
-package com.lintang.jetpackprolintang.ui.main
+package com.lintang.jetpackprolintang.content.ui.main
 
 import android.os.Bundle
 import com.google.android.material.tabs.TabLayoutMediator
 import com.lintang.jetpackprolintang.R
 import com.lintang.jetpackprolintang.base.ui.BaseActivity
-import com.lintang.jetpackprolintang.ui.movie.MovieFragment
-import com.lintang.jetpackprolintang.ui.series.SeriesFragment
+import com.lintang.jetpackprolintang.content.ui.movie.MovieFragment
+import com.lintang.jetpackprolintang.content.ui.series.SeriesFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : BaseActivity() {

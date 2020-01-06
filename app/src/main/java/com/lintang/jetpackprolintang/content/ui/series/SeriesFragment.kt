@@ -1,25 +1,22 @@
-package com.lintang.jetpackprolintang.ui.series
+package com.lintang.jetpackprolintang.content.ui.series
 
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lintang.jetpackprolintang.R
+import com.lintang.jetpackprolintang.base.data.model.SeriesModel
 import com.lintang.jetpackprolintang.base.ui.BaseFragment
-import com.lintang.jetpackprolintang.data.Series
 import kotlinx.android.synthetic.main.fragment_series.*
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class SeriesFragment : BaseFragment() {
 
     private lateinit var mViewModel: SeriesViewModel
-    private lateinit var serieses: List<Series>
+
     private lateinit var adapter: SeriesAdapter
 
     companion object {
@@ -36,20 +33,26 @@ class SeriesFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this).get(SeriesViewModel::class.java)
-        serieses = mViewModel.getSerieses()
+        mViewModel = obtainViewModel()
         setUpRecylerView()
+        setupEventView(progress_bar, true)
+        mViewModel.getSerieses().observe(this, Observer {
+            setupEventView(progress_bar, false)
+            if (it != null) {
+                adapter.setData(it)
+            } else {
+                showToast("Terjadi Kesalahan")
+            }
+        })
     }
 
 
     fun setUpRecylerView() {
         adapter = SeriesAdapter()
         context?.let { adapter.setLayout(it, R.layout.items_movie) }
-
-        adapter.setData(serieses)
         adapter.setListner({ data ->
             context?.let {
-                baseStartActivity<SeriesDetailActivity, String>(it, TAG, data.id ?: "0")
+                baseStartActivity<SeriesDetailActivity, SeriesModel>(it, TAG, data)
             }
         })
         rv_serieses.adapter = adapter

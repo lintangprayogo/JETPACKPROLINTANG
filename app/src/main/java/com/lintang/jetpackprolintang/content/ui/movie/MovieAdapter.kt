@@ -1,4 +1,4 @@
-package com.lintang.jetpackprolintang.ui.movie
+package com.lintang.jetpackprolintang.content.ui.movie
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +8,13 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.lintang.jetpackprolintang.BuildConfig
 import com.lintang.jetpackprolintang.R
-
+import com.lintang.jetpackprolintang.base.data.model.MovieModel
 import com.lintang.jetpackprolintang.base.ui.BaseAdapter
 import com.lintang.jetpackprolintang.base.ui.BaseHolder
-import com.lintang.jetpackprolintang.data.Movie
+import com.lintang.jetpackprolintang.base.utils.Helper.Func.toDatetoString
 import kotlinx.android.synthetic.main.items_movie.view.*
 
-class MovieAdapter : BaseAdapter<Movie, MovieAdapter.MovieHolder>() {
+class MovieAdapter : BaseAdapter<MovieModel, MovieAdapter.MovieHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
@@ -26,17 +26,17 @@ class MovieAdapter : BaseAdapter<Movie, MovieAdapter.MovieHolder>() {
         return holder
     }
 
-    inner class MovieHolder(view: View) : BaseHolder<Movie>(view) {
+    inner class MovieHolder(view: View) : BaseHolder<MovieModel>(view) {
         val textRealese: TextView = view.date_movie
         val textTitle: TextView = view.title_movie
         val textRate = view.rate_movie
         val poster: ImageView = view.poster
         val textOverview = view.overview
-        override fun bindData(data: Movie) {
+        override fun bindData(data: MovieModel) {
             Glide.with(itemView.context).load("${BuildConfig.SMALL_PATH}${data.posterPath}")
                 .into(poster)
             textTitle.text = data.title
-            textRealese.text = data.realeseDate
+            textRealese.text = toDatetoString(data.realeseDate ?: "", "EEE, dd MMM yyyy")
             textRate.text = data.voteAverage.toString()
             textOverview.text = data.overview
         }

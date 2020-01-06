@@ -4,6 +4,7 @@ package com.lintang.jetpackprolintang.base.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.lintang.jetpackprolintang.base.utils.BaseHelper
 
@@ -24,6 +25,7 @@ abstract class BaseActivity : AppCompatActivity() {
         return extraData
     }
 
+
     protected fun checkExtra(extraKey: String): Boolean {
         return intent?.hasExtra(extraKey)!!
     }
@@ -40,6 +42,14 @@ abstract class BaseActivity : AppCompatActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    protected fun setupEventView(view: View, progress: Boolean) {
+        if (progress) {
+            view.visibility = View.VISIBLE
+        } else {
+            view.visibility = View.GONE
         }
     }
 

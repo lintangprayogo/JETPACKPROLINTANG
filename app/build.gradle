@@ -16,6 +16,9 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SMALL_PATH", '"https://image.tmdb.org/t/p/w185/"')
         buildConfigField("String", "HIGH_PATH", '"https://image.tmdb.org/t/p/w780/"')
+        buildConfigField("String", "MOVIES_API", '"movie?api_key=2889b7616574dc7355a328ebf5cde7e3&language=en-US"')
+        buildConfigField("String", "SERIES_API", '"tv?api_key=2889b7616574dc7355a328ebf5cde7e3&language=en-US"')
+        buildConfigField("String", "BASE_URL", '"https://api.themoviedb.org/3/discover/"')
     }
     buildTypes {
         release {
@@ -90,8 +93,22 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     androidTestImplementation "androidx.arch.core:core-testing:$archLifecycleVersion"
 
+
     // Dependencies for Idle Resource
     implementation "androidx.test.espresso:espresso-idling-resource:$idleResourceVersion"
+
+    //Network
+    implementation 'com.squareup.retrofit2:retrofit:2.7.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.7.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.0'
+
+    implementation "com.squareup.moshi:moshi:1.8.0"
+    implementation 'com.squareup.okhttp3:okhttp:3.14.4'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.1'
+
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
     androidExtensions {
         experimental = true
     }
