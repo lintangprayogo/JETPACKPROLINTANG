@@ -1,12 +1,16 @@
 package com.lintang.jetpackprolintang.base.ui
 
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import com.lintang.jetpackprolintang.base.utils.BaseHelper
+import com.lintang.jetpackprolintang.base.viewmodel.ViewModelFactory
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -45,13 +49,17 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    protected fun setupEventView(view: View, progress: Boolean) {
-        if (progress) {
-            view.visibility = View.VISIBLE
-        } else {
-            view.visibility = View.GONE
-        }
+    protected inline fun <reified ClassActivity> baseStartActivity(
+        context: Context
+    ) {
+        val intent = Intent(context, ClassActivity::class.java)
+        startActivity(intent)
+
     }
 
+    protected inline fun <reified T : ViewModel> obtainViewModel(): T {
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(mActivity.application)
+        return ViewModelProviders.of(this, factory).get(T::class.java)
+    }
 
 }

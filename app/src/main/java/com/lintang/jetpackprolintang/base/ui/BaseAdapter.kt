@@ -1,13 +1,14 @@
 package com.lintang.jetpackprolintang.base.ui
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 
-abstract class BaseAdapter<T, Holder : BaseHolder<T>> : RecyclerView.Adapter<Holder>() {
-    protected val listData: MutableList<T> = mutableListOf()
+abstract class BaseAdapter<T, Holder : BaseHolder<T>>(callback: DiffUtil.ItemCallback<T>) :
+    PagedListAdapter<T, Holder>(callback) {
     protected var mLayout: Int = 0
     protected lateinit var mContext: Context
-    protected lateinit var mListner: (T) -> Unit
+    protected lateinit var mListner: (T?) -> Unit
 
 
     fun setLayout(mContext: Context, mLayout: Int) {
@@ -15,26 +16,15 @@ abstract class BaseAdapter<T, Holder : BaseHolder<T>> : RecyclerView.Adapter<Hol
         this.mLayout = mLayout
     }
 
-    fun setData(entries: List<T>) {
-        listData.addAll(entries)
-        notifyDataSetChanged()
-    }
 
-    fun setListner(mListner: (T) -> Unit) {
+    fun setListner(mListner: (T?) -> Unit) {
         this.mListner = mListner
     }
 
 
-    fun destroyData() {
-        listData.clear()
-    }
-
-
-    override fun getItemCount(): Int {
-        return listData.size
-    }
-
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bindData(listData[position])
+        holder.bindData(getItem(position))
     }
+
+
 }

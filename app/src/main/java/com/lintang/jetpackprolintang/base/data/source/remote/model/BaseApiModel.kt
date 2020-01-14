@@ -1,4 +1,4 @@
-package com.lintang.jetpackprolintang.base
+package com.lintang.jetpackprolintang.base.data.source.remote.model
 
 import com.google.gson.annotations.SerializedName
 

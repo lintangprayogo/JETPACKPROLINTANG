@@ -1,20 +1,20 @@
-package com.lintang.jetpackprolintang.base.data.model
+package com.lintang.jetpackprolintang.base.data.source.remote.model
 
 import com.google.gson.annotations.SerializedName
 
 data class MovieModel(
     @SerializedName("id")
-    val id: String?,
+    var id: Int? = null,
     @SerializedName("original_title")
-    val title: String?,
+    var title: String? = null,
     @SerializedName("vote_average")
-    val voteAverage: Double?,
+    var voteAverage: Double? = null,
     @SerializedName("release_date")
-    val realeseDate: String?,
+    var realeseDate: String? = null,
     @SerializedName("poster_path")
-    val posterPath: String?,
+    var posterPath: String? = null,
     @SerializedName("backdrop_path")
-    val backgroundPath: String?,
+    var backgroundPath: String? = null,
     @SerializedName("overview")
-    val overview: String?
+    var overview: String? = null
 )

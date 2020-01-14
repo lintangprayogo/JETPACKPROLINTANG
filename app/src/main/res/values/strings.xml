@@ -8,4 +8,8 @@
     <string name="rate_title">Rate</string>
     <string name="realese">Realese Date</string>
     <string name="first_air_date">First Air Date</string>
+    <string name="favorite">Favorite</string>
+
+    <string name="emptymovie">Theres Is No Movie</string>
+    <string name="emptyseries">Theres Is No Series</string>
 </resources>

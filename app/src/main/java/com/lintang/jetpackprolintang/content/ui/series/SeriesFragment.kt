@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lintang.jetpackprolintang.R
-import com.lintang.jetpackprolintang.base.data.model.SeriesModel
+import com.lintang.jetpackprolintang.base.data.source.local.entity.SeriesEntity
 import com.lintang.jetpackprolintang.base.ui.BaseFragment
+import com.lintang.jetpackprolintang.base.vo.Status
 import kotlinx.android.synthetic.main.fragment_series.*
 
 
@@ -37,11 +38,18 @@ class SeriesFragment : BaseFragment() {
         setUpRecylerView()
         setupEventView(progress_bar, true)
         mViewModel.getSerieses().observe(this, Observer {
-            setupEventView(progress_bar, false)
-            if (it != null) {
-                adapter.setData(it)
-            } else {
-                showToast("Terjadi Kesalahan")
+            when (it.status) {
+                Status.LOADING -> {
+                    setupEventView(progress_bar, true)
+                }
+                Status.SUCCESS -> {
+                    setupEventView(progress_bar, false)
+                    adapter.submitList(it.data)
+                }
+                Status.ERROR -> {
+                    setupEventView(progress_bar, false)
+                    showToast("Terjadi Kesalahan")
+                }
             }
         })
     }
@@ -52,7 +60,7 @@ class SeriesFragment : BaseFragment() {
         context?.let { adapter.setLayout(it, R.layout.items_movie) }
         adapter.setListner({ data ->
             context?.let {
-                baseStartActivity<SeriesDetailActivity, SeriesModel>(it, TAG, data)
+                baseStartActivity<SeriesDetailActivity, SeriesEntity?>(it, TAG, data)
             }
         })
         rv_serieses.adapter = adapter

@@ -16,9 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.lintang.jetpackprolintang.content.ui.series.SeriesDetailActivity" />
-        <activity android:name="com.lintang.jetpackprolintang.content.ui.movie.MovieDetailActivity" />
-        <activity android:name="com.lintang.jetpackprolintang.content.ui.main.HomeActivity">
+        <activity android:name=".content.ui.favorite.FavoriteActivity"></activity>
+        <activity android:name=".content.ui.series.SeriesDetailActivity" />
+        <activity android:name=".content.ui.movie.MovieDetailActivity" />
+        <activity android:name=".content.ui.main.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

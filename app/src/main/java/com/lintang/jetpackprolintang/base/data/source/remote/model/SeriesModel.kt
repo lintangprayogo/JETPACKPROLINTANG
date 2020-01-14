@@ -1,10 +1,10 @@
-package com.lintang.jetpackprolintang.base.data.model
+package com.lintang.jetpackprolintang.base.data.source.remote.model
 
 import com.google.gson.annotations.SerializedName
 
 data class SeriesModel(
     @SerializedName("id")
-    val id: String?,
+    val id: Int?,
     @SerializedName("original_name")
     val title: String?,
     @SerializedName("vote_average")

@@ -1,13 +1,14 @@
 package com.lintang.jetpackprolintang.base.data.source.remote
 
 import android.annotation.SuppressLint
-import com.lintang.jetpackprolintang.base.data.model.MovieModel
-import com.lintang.jetpackprolintang.base.data.model.SeriesModel
-import com.lintang.jetpackprolintang.base.data.source.LoadCallback
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.lintang.jetpackprolintang.base.data.source.remote.model.MovieModel
+import com.lintang.jetpackprolintang.base.data.source.remote.model.SeriesModel
 import com.lintang.jetpackprolintang.base.utils.EspressoIdlingResource
 import io.reactivex.schedulers.Schedulers
 
-class RemoteRepository() {
+class RemoteRepository {
     companion object {
         @JvmStatic
         private var INSTANCE: RemoteRepository? = null
@@ -21,21 +22,30 @@ class RemoteRepository() {
     }
 
     @SuppressLint("CheckResult")
-    fun getMovies(callback: LoadCallback<List<MovieModel>>) {
+    fun getMovies(): LiveData<ApiResponse<List<MovieModel>>> {
+        val result: MutableLiveData<ApiResponse<List<MovieModel>>> = MutableLiveData()
+
         EspressoIdlingResource.increment()
         ApiService.getApiService.getMovies().subscribeOn(Schedulers.io())
-            .doOnError { callback.onDataNotAvailble(it.localizedMessage ?: "Unknown") }
+            .doOnError { ApiResponse.error(it.localizedMessage, null) }
             .doOnTerminate { EspressoIdlingResource.decrement() }
-            .subscribe { callback.onDataReceived(it.results ?: listOf()) }
+            .subscribe {
+                result.postValue(ApiResponse.success(it.results ?: listOf()))
+            }
+
+        return result
     }
 
     @SuppressLint("CheckResult")
-    fun getSerieses(callback: LoadCallback<List<SeriesModel>>) {
+    fun getSerieses(): LiveData<ApiResponse<List<SeriesModel>>> {
+        val result: MutableLiveData<ApiResponse<List<SeriesModel>>> = MutableLiveData()
+
         EspressoIdlingResource.increment()
         ApiService.getApiService.getTvShow().subscribeOn(Schedulers.io())
-            .doOnError { callback.onDataNotAvailble(it.localizedMessage ?: "Unknown") }
+            .doOnError { ApiResponse.error(it.localizedMessage, null) }
             .doOnTerminate { EspressoIdlingResource.decrement() }.subscribe {
-                callback.onDataReceived(it.results ?: listOf())
+                result.postValue(ApiResponse.success(it.results ?: listOf()))
             }
+        return result
     }
 }

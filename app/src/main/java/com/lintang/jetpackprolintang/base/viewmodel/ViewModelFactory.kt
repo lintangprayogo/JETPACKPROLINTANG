@@ -1,5 +1,6 @@
 package com.lintang.jetpackprolintang.base.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 import com.lintang.jetpackprolintang.base.data.source.Repository
@@ -15,11 +16,11 @@ class ViewModelFactory(val repository: Repository) : NewInstanceFactory() {
         private var INSTANCE: ViewModelFactory? = null
 
         @JvmStatic
-        fun getInstance(): ViewModelFactory {
+        fun getInstance(application: Application): ViewModelFactory {
             if (INSTANCE == null) {
                 synchronized(ViewModelFactory::class.java) {
                     INSTANCE =
-                        ViewModelFactory(Injection.provideRepo())
+                        ViewModelFactory(Injection.provideRepo(application))
 
                 }
             }

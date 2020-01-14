@@ -5,17 +5,17 @@ package com.lintang.jetpackprolintang.content.ui.movie
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.lintang.jetpackprolintang.base.data.model.MovieModel
+import androidx.paging.PagedList
 import com.lintang.jetpackprolintang.base.data.source.Repository
-import com.lintang.jetpackprolintang.base.utils.DataDummy
+import com.lintang.jetpackprolintang.base.data.source.local.entity.MovieEntity
+import com.lintang.jetpackprolintang.base.vo.Resource
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
+
 
 @Suppress("UNCHECKED_CAST")
 class MovieViewModelTest {
@@ -35,13 +35,29 @@ class MovieViewModelTest {
 
     @Test
     fun getMovies() {
-        val dummy: List<MovieModel> = DataDummy.generateMovie()
-        val result: MutableLiveData<List<MovieModel>> = MutableLiveData()
-        result.value = dummy
-        Mockito.`when`(repository.getMovies()).thenReturn(result)
-        val observer = mock(Observer::class.java) as Observer<List<MovieModel>>
+        val dummyMovies: MutableLiveData<Resource<PagedList<MovieEntity>>> = MutableLiveData()
+        val pagedList: PagedList<MovieEntity> =
+            mock(PagedList::class.java) as PagedList<MovieEntity>
+        dummyMovies.value = Resource.success(pagedList)
+        `when`(repository.getMovies()).thenReturn(dummyMovies)
+        val observer: Observer<Resource<PagedList<MovieEntity>>> =
+            mock(Observer::class.java) as Observer<Resource<PagedList<MovieEntity>>>
         mViewModel.getMovies().observeForever(observer)
-        verify(observer).onChanged(dummy)
+        verify(observer).onChanged(Resource.success(pagedList))
+
+    }
+
+    @Test
+    fun getMovieFavorite() {
+        val dummyMovies: MutableLiveData<Resource<PagedList<MovieEntity>>> = MutableLiveData()
+        val pagedList: PagedList<MovieEntity> =
+            mock(PagedList::class.java) as PagedList<MovieEntity>
+        dummyMovies.value = Resource.success(pagedList)
+        `when`(repository.getMoviesFavorite()).thenReturn(dummyMovies)
+        val observer: Observer<Resource<PagedList<MovieEntity>>> =
+            mock(Observer::class.java) as Observer<Resource<PagedList<MovieEntity>>>
+        mViewModel.getMoviesFavorite().observeForever(observer)
+        verify(observer).onChanged(Resource.success(pagedList))
     }
 
 

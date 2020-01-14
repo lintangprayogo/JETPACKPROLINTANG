@@ -2,10 +2,10 @@ package com.lintang.jetpackprolintang.base.data.source.remote
 
 
 import com.lintang.jetpackprolintang.BuildConfig
-import com.lintang.jetpackprolintang.base.BaseApiModel
 import com.lintang.jetpackprolintang.base.BaseApplication
-import com.lintang.jetpackprolintang.base.data.model.MovieModel
-import com.lintang.jetpackprolintang.base.data.model.SeriesModel
+import com.lintang.jetpackprolintang.base.data.source.remote.model.BaseApiModel
+import com.lintang.jetpackprolintang.base.data.source.remote.model.MovieModel
+import com.lintang.jetpackprolintang.base.data.source.remote.model.SeriesModel
 import com.lintang.jetpackprolintang.base.utils.Helper
 import io.reactivex.Observable
 import okhttp3.Cache

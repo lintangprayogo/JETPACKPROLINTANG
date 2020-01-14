@@ -1,4 +1,4 @@
-package com.lintang.jetpackprolintang.content.ui.main
+package com.lintang.jetpackprolintang.content.ui
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

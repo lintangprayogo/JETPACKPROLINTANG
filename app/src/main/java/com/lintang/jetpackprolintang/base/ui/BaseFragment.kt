@@ -45,7 +45,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     protected inline fun <reified T : ViewModel> obtainViewModel(): T {
-        val factory: ViewModelFactory = ViewModelFactory.getInstance()
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(mActivity.application)
         return ViewModelProviders.of(this, factory).get(T::class.java)
     }
 }
